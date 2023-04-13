@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const fs = require('fs');
 const port = 3333
 const cors = require('cors')
 app.use(express.json());
@@ -9,8 +10,13 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+
 app.post('/api/errors', (req, res) => {
-  console.log(req.body)
+  const body = req.body;
+  //write to file
+  const bodyString = JSON.stringify(body);
+
+  fs.writeFileSync('./log.txt', bodyString);
   res.send('Hello World')
 })
 
